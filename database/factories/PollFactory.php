@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Poll;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<User>
+ * @extends Factory<Poll>
  */
-class UserFactory extends Factory
+class PollFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'phone_number' => fake()->phoneNumber(),
+            'title' => fake()->sentence(),
+            'description' => fake()->boolean(20) ? fake()->sentences(3) : null,
+            'question' => fake()->sentence(),
         ];
     }
 }
