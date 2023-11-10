@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Option;
+use App\Models\Response;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Option>
+ * @extends Factory<Response>
  */
-class OptionFactory extends Factory
+class ResponseFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,6 @@ class OptionFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'value' => fake()->word(),
-        ];
+        return [];
     }
 }
