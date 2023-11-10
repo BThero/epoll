@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Poll>
  */
-class PollFactory extends Factory
+class OptionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,7 @@ class PollFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(),
-            'description' => fake()->boolean(20) ? implode(fake()->sentences(3)) : null,
-            'question' => fake()->sentence(),
+            'value' => fake()->word(),
         ];
     }
 }
