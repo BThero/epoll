@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('responses', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignId('user_id');
-            $table->foreignId('poll_id');
-            $table->foreignId('option_id');
+            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('poll_id')->constrained();
+            $table->foreignUuid('option_id')->constrained();
 
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Poll;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class PollFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->boolean(20) ? implode(fake()->sentences(3)) : null,
             'question' => fake()->sentence(),
-            'user_id' => fake()->numberBetween(1, 10),
+            'user_id' => User::factory(),
         ];
     }
 }

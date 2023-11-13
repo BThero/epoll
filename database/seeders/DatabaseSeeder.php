@@ -16,9 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-        Poll::factory(10)->create();
-        Option::factory(10)->create();
-        Response::factory(10)->create();
+        $users = User::factory(10)->create();
+        $polls = Poll::factory(10)->recycle($users)->create();
+        for ($i = 0; $i < 10; $i++) {
+            $attachedPollsCount = fake()->numberBetween(2, 5);
+            $attachedPolls = Poll::query()->select(['id'])->inRandomOrder()->limit($attachedPollsCount)->get();
+            Option::factory(1)->hasAttached($attachedPolls, ['order' => 1])->create();
+        }
+        $options = Option::all();
+        Response::factory(10)->recycle($users)->recycle($polls)->recycle($options)->create();
     }
 }

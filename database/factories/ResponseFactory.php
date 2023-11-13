@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Option;
+use App\Models\Poll;
 use App\Models\Response;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +21,9 @@ class ResponseFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->numberBetween(1, 10),
-            'poll_id' => fake()->numberBetween(1, 10),
-            'option_id' => fake()->numberBetween(1, 10),
+            'user_id' => User::factory(),
+            'poll_id' => Poll::factory(),
+            'option_id' => Option::factory(),
         ];
     }
 }
