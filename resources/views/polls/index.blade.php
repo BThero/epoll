@@ -4,12 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Welcome | Epoll</title>
+    <title>Polls</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.8"></script>
 </head>
 <body class="antialiased">
-Welcome to Epoll!
+<h1>Polls</h1>
+@forelse ($polls as $poll)
+    <p>This is poll {{ $poll->id }}</p>
+@empty
+    <p>No polls found</p>
+@endforelse
 </body>
 </html>
