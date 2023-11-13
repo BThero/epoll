@@ -13,6 +13,7 @@ class PollController extends Controller
     public function index()
     {
         $polls = Poll::all();
+
         return view('polls/index', ['polls' => $polls]);
     }
 
@@ -38,6 +39,7 @@ class PollController extends Controller
     public function show(string $id)
     {
         $poll = Poll::query()->where('id', $id)->first();
+
         return view('polls/show', ['poll' => $poll]);
     }
 
