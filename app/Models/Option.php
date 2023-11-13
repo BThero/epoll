@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Option extends Model
 {
@@ -32,4 +34,14 @@ class Option extends Model
      * @var array<string, string>
      */
     protected $casts = [];
+
+    public function responses(): HasMany
+    {
+        return $this->hasMany(Response::class);
+    }
+
+    public function polls(): BelongsToMany
+    {
+        return $this->belongsToMany(Poll::class);
+    }
 }

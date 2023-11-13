@@ -10,10 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('phone_number');
-            $table->string('name')->nullable();
+        Schema::create('option_poll', function (Blueprint $table) {
+            $table->foreignId('option_id');
+            $table->foreignId('poll_id');
+            $table->integer('order');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('option_poll');
     }
 };

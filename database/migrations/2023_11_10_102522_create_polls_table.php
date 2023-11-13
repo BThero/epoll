@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('question');
+
+            $table->foreignId('user_id');
+
             $table->timestamps();
             $table->dateTime('closed_at')->nullable();
         });

@@ -18,7 +18,7 @@ class OptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'value' => fake()->word(),
+            'value' => fake()->regexify('[A-Za-z]{20}'),
         ];
     }
 }

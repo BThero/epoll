@@ -21,6 +21,7 @@ class PollFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->boolean(20) ? implode(fake()->sentences(3)) : null,
             'question' => fake()->sentence(),
+            'user_id' => fake()->numberBetween(1, 10),
         ];
     }
 }
