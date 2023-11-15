@@ -48,6 +48,7 @@ class RegisterController extends Controller
             'phone_number' => $phone_number,
         ]);
         Auth::login($user);
+
         return redirect('signed-in');
     }
 }

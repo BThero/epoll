@@ -51,6 +51,7 @@ class LoginController extends Controller
             return view('login/verification_code');
         }
         Auth::login($user);
+
         return redirect('signed-in');
     }
 }
