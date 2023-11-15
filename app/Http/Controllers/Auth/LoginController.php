@@ -8,14 +8,14 @@ use App\Models\VerificationCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RegisterController extends Controller
+class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('register/phone_number');
+        return view('login/phone_number');
     }
 
     /**
@@ -30,7 +30,7 @@ class RegisterController extends Controller
             'phone_number' => $phone_number,
         ]);
 
-        return view('register/verification_code');
+        return view('login/verification_code');
     }
 
     /**
@@ -41,12 +41,15 @@ class RegisterController extends Controller
         $code = $request->input('code');
         $verification_code = VerificationCode::query()->where('code', $code)->select(['code', 'phone_number'])->first();
         if (empty($verification_code)) {
-            return view('register/verification_code');
+            return view('login/verification_code');
         }
         $phone_number = $verification_code->phone_number;
-        $user = User::create([
+        $user = User::query()->where([
             'phone_number' => $phone_number,
-        ]);
+        ])->first();
+        if (empty($user)) {
+            return view('login/verification_code');
+        }
         Auth::login($user);
         return redirect('signed-in');
     }
