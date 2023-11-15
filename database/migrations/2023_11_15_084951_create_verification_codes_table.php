@@ -10,10 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('verification_codes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('phone_number')->unique();
-            $table->string('name')->nullable();
+            $table->string('code')->unique();
+            $table->string('phone_number');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('verification_codes');
     }
 };

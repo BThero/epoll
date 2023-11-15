@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,6 @@ Route::get('/', function () {
 });
 
 Route::resource('polls', PollController::class);
+Route::get('register', [RegisterController::class, 'index'])->name('register.index');
+Route::post('register/store', [RegisterController::class, 'store'])->name('register.store');
+Route::post('register/verify', [RegisterController::class, 'verify'])->name('register.verify');
