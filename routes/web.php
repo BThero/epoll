@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where you can sign-in web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
@@ -25,10 +24,8 @@ Route::get('/signed-in', function () {
 })->middleware('auth')->name('signed-in');
 
 Route::resource('polls', PollController::class);
-Route::get('register', [RegisterController::class, 'index'])->name('register.index');
-Route::post('register/store', [RegisterController::class, 'store'])->name('register.store');
-Route::post('register/verify', [RegisterController::class, 'verify'])->name('register.verify');
 
-Route::get('login', [LoginController::class, 'index'])->name('login.index');
-Route::post('login/store', [LoginController::class, 'store'])->name('login.store');
-Route::post('login/verify', [LoginController::class, 'verify'])->name('login.verify');
+Route::get('sign-in', [SignInController::class, 'showPhone'])->name('signIn.showPhone');
+Route::get('sign-in/verify', [SignInController::class, 'showVerify'])->name('signIn.showVerify');
+Route::post('sign-in/store', [SignInController::class, 'savePhone'])->name('signIn.savePhone');
+Route::post('sign-in/verify', [SignInController::class, 'verifyPhone'])->name('signIn.verifyPhone');

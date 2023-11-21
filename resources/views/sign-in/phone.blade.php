@@ -10,13 +10,13 @@
     <script src="https://unpkg.com/htmx.org@1.9.8"></script>
 </head>
 <body class="antialiased">
-Enter the code sent to your phone
-<form action="{{ route('register.verify') }}" method="post">
+Enter your phone number
+<form action="{{ route('signIn.savePhone') }}" method="post">
     @method('POST')
     @csrf
     <label>
-        Code
-        <input type="text" placeholder="abc123" name="code"/>
+        Phone number
+        <input type="text" placeholder="+34 ..." name="phone_number"/>
     </label>
     <button type="submit">Send</button>
 </form>
