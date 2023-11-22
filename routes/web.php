@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SignInController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('home', 'home')->middleware('auth')->name('home');
+Route::get('home', HomeController::class)->middleware('auth')->name('home');
 
 Route::resource('polls', PollController::class);
 
