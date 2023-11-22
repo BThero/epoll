@@ -6,8 +6,8 @@
 
     <title>Enter Verification Code</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.8"></script>
+    @vite('resources/css/app.css')
 </head>
 <body class="antialiased">
 <p>Enter the 4-digit code sent to your phone number {{ $phone_number }}</p>

@@ -31,6 +31,6 @@ class SignInController extends Controller
         ]);
         Auth::login($user);
 
-        return redirect('signed-in');
+        return redirect('home');
     }
 }

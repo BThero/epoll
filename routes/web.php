@@ -19,9 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/signed-in', function () {
-    return view('signed-in/welcome');
-})->middleware('auth')->name('signed-in');
+Route::view('home', 'home')->middleware('auth')->name('home');
 
 Route::resource('polls', PollController::class);
 

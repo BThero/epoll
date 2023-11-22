@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Welcome | Epoll</title>
+    <title>Home | Epoll</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.8"></script>
+    @vite('resources/css/app.css')
 </head>
 <body class="antialiased">
-Welcome to Epoll (signed in)!
+<div class="border-b-1 border-black">
+    Hi! Your phone number is {{ auth()->user()->phone_number  }}}
+</div>
 </body>
 </html>

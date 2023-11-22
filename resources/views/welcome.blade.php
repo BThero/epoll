@@ -6,10 +6,10 @@
 
     <title>Welcome | Epoll</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.8"></script>
+    @vite('resources/css/app.css')
 </head>
-<body class="antialiased">
+<body class="antialiased text-red-300">
 Welcome to Epoll!
 </body>
 </html>

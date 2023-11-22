@@ -6,8 +6,8 @@
 
     <title>Enter Phone Number</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.8"></script>
+    @vite('resources/css/app.css')
 </head>
 <body class="antialiased">
 Enter your phone number

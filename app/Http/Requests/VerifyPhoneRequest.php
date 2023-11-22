@@ -35,7 +35,7 @@ class VerifyPhoneRequest extends FormRequest
             function (Validator $validator) {
                 $code = $this->input('code');
                 $phone_number = $this->input('phone_number');
-                if (!VerificationCode::query()->where(
+                if (! VerificationCode::query()->where(
                     ['code' => $code, 'phone_number' => $phone_number]
                 )->exists()) {
                     $validator->errors()->add(
