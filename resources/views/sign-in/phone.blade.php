@@ -4,7 +4,6 @@
     </x-slot:title>
     <p>Enter your phone number</p>
     <form action="{{ route('signIn.savePhone') }}" method="post">
-        @method('POST')
         @csrf
         <div>
             <label>

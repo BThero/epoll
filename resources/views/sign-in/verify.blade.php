@@ -4,7 +4,6 @@
     </x-slot:title>
     <p>Enter the 4-digit code sent to your phone number {{ $phone_number }}</p>
     <form action="{{ route('signIn.verifyPhone') }}" method="post">
-        @method('POST')
         @csrf
         <div>
             <label hidden>
@@ -21,4 +20,4 @@
         @enderror
         <button type="submit">Send</button>
     </form>
-    <x-layout>
+</x-layout>
