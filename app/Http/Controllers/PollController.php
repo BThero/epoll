@@ -24,6 +24,7 @@ class PollController extends Controller
     public function create()
     {
         $options = Option::all(['id', 'value']);
+
         return view('polls/create', [
             'options' => $options,
         ]);
@@ -44,6 +45,7 @@ class PollController extends Controller
             $strippedKey = substr($key, strlen('option-'));
             // TODO: figure out how to get the order from the request
             $order = 1;
+
             return [$strippedKey => ['order' => $order]];
         })->toArray();
         $poll = $user->polls()->create([
