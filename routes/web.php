@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OptionController;
 use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::get('/', function () {
 Route::get('home', HomeController::class)->middleware('auth')->name('home');
 
 Route::resource('polls', PollController::class);
+Route::resource('options', OptionController::class);
 
 Route::view('sign-in', 'sign-in/phone');
 Route::get('sign-in/verify/{phone_number}', function (string $phone_number) {

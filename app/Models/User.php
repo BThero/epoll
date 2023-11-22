@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Response::class);
     }
+
+    public function options(): HasMany
+    {
+        return $this->hasMany(Option::class);
+    }
 }
