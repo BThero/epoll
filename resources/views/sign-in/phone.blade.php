@@ -2,7 +2,7 @@
     <x-slot:title>
         Enter phone number
     </x-slot:title>
-    Enter your phone number
+    <p>Enter your phone number</p>
     <form action="{{ route('signIn.savePhone') }}" method="post">
         @method('POST')
         @csrf

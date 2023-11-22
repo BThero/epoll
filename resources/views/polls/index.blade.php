@@ -8,7 +8,9 @@
 
             <ul>
                 @foreach($polls as $poll)
-                    <p>Poll with ID {{ $poll->id }}</p>
+                    <li>
+                        <a href="{{ route('polls.show', ['poll' => $poll->id]) }}">{{ $poll->title }}</a>
+                    </li>
                 @endforeach
             </ul>
         @else

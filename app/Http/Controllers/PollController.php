@@ -46,9 +46,10 @@ class PollController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        $poll = Poll::query()->where('id', $id)->first();
+        $user = $request->user();
+        $poll = $user->polls()->where('id', $id)->first();
 
         return view('polls/show', ['poll' => $poll]);
     }
