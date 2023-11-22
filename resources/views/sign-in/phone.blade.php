@@ -14,10 +14,15 @@ Enter your phone number
 <form action="{{ route('signIn.savePhone') }}" method="post">
     @method('POST')
     @csrf
-    <label>
-        Phone number
-        <input type="text" placeholder="+34 ..." name="phone_number"/>
-    </label>
+    <div>
+        <label>
+            Phone number
+            <input type="text" placeholder="+34 ..." name="phone_number"/>
+        </label>
+    </div>
+    @error('phone_number')
+    <div class="text-red-500">{{ $message }}</div>
+    @enderror
     <button type="submit">Send</button>
 </form>
 </body>

@@ -25,7 +25,12 @@ Route::get('/signed-in', function () {
 
 Route::resource('polls', PollController::class);
 
-Route::get('sign-in', [SignInController::class, 'showPhone'])->name('signIn.showPhone');
-Route::get('sign-in/verify', [SignInController::class, 'showVerify'])->name('signIn.showVerify');
-Route::post('sign-in/store', [SignInController::class, 'savePhone'])->name('signIn.savePhone');
+Route::view('sign-in', 'sign-in/phone');
+Route::get('sign-in/verify/{phone_number}', function (string $phone_number) {
+    return view('sign-in/verify', [
+        'phone_number' => $phone_number,
+    ]);
+});
+
+Route::post('sign-in/phone', [SignInController::class, 'savePhone'])->name('signIn.savePhone');
 Route::post('sign-in/verify', [SignInController::class, 'verifyPhone'])->name('signIn.verifyPhone');
