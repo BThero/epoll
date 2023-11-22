@@ -27,6 +27,22 @@
                 @enderror
             </div>
             <div>
+                <label for="options">Options (check all you want)</label>
+                @foreach($options as $option)
+                    <div>
+                        <label>
+                            <input type="checkbox" name="{{'option-' . $option->id}}"
+                                   id="{{'option-' . $option->id}}"/>
+                            {{ $option->value }}
+                        </label>
+                    </div>
+                @endforeach
+                <input type="text" name="options" id="options" value="{{ old('options') }}">
+                @error('options')
+                <div>{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
                 <button type="submit">Create</button>
             </div>
         </form>

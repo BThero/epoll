@@ -8,6 +8,14 @@
             <p>Title: {{ $poll->title }}</p>
             <p>Question: {{ $poll->question }}</p>
             <p>Description: {{ $poll->description ?? '-' }}</p>
+            <div>
+                Options:
+                @foreach($poll->options as $option)
+                    <div>
+                        Option {{ $option->value }}
+                    </div>
+                @endforeach
+            </div>
         @endisset
         @empty($poll)
             <p>Poll Not found</p>

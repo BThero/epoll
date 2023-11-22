@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Option;
 use Illuminate\Http\Request;
 
 class PollController extends Controller
@@ -22,7 +23,10 @@ class PollController extends Controller
      */
     public function create()
     {
-        return view('polls/create');
+        $options = Option::all(['id', 'value']);
+        return view('polls/create', [
+            'options' => $options,
+        ]);
     }
 
     /**
@@ -34,11 +38,20 @@ class PollController extends Controller
         $title = $request->input('title');
         $question = $request->input('question');
         $description = $request->input('description');
+        $options = collect($request->keys())->filter(function ($key) {
+            return str_starts_with($key, 'option-');
+        })->mapWithKeys(function ($key) {
+            $strippedKey = substr($key, strlen('option-'));
+            // TODO: figure out how to get the order from the request
+            $order = 1;
+            return [$strippedKey => ['order' => $order]];
+        })->toArray();
         $poll = $user->polls()->create([
             'title' => $title,
             'question' => $question,
             'description' => $description,
         ]);
+        $poll->options()->attach($options);
 
         return redirect()->route('polls.index');
     }
@@ -49,7 +62,7 @@ class PollController extends Controller
     public function show(Request $request, string $id)
     {
         $user = $request->user();
-        $poll = $user->polls()->where('id', $id)->first();
+        $poll = $user->polls()->where('id', $id)->with('options')->first();
 
         return view('polls/show', ['poll' => $poll]);
     }
