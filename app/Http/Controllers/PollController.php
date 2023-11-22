@@ -79,6 +79,7 @@ class PollController extends Controller
             'question' => $question,
             'description' => $description,
         ]);
+
         return redirect()->route('polls.index');
     }
 
@@ -89,6 +90,7 @@ class PollController extends Controller
     {
         $user = $request->user();
         $user->polls()->where('id', $id)->delete();
+
         return redirect()->route('polls.index');
     }
 }
