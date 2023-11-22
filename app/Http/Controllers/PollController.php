@@ -85,8 +85,10 @@ class PollController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $user = $request->user();
+        $user->polls()->where('id', $id)->delete();
+        return redirect()->route('polls.index');
     }
 }

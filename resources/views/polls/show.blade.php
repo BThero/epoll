@@ -16,5 +16,10 @@
     <div>
         <a href="{{ route('polls.index') }}">Back</a>
         <a href="{{ route('polls.edit', $poll) }}">Edit</a>
+        <form action="{{ route('polls.destroy', $poll) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Delete</button>
+        </form>
     </div>
 </x-layout>

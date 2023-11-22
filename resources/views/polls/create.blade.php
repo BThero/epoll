@@ -27,13 +27,6 @@
                 @enderror
             </div>
             <div>
-                <label for="options">Options</label>
-                <input type="text" name="options" id="options" value="{{ old('options') }}">
-                @error('options')
-                <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
                 <button type="submit">Create</button>
             </div>
         </form>
