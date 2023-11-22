@@ -13,4 +13,8 @@
             <p>Poll Not found</p>
         @endempty
     </div>
+    <div>
+        <a href="{{ route('polls.index') }}">Back</a>
+        <a href="{{ route('polls.edit', $poll) }}">Edit</a>
+    </div>
 </x-layout>

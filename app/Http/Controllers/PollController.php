@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Poll;
 use Illuminate\Http\Request;
 
 class PollController extends Controller
@@ -40,6 +39,7 @@ class PollController extends Controller
             'question' => $question,
             'description' => $description,
         ]);
+
         return redirect()->route('polls.index');
     }
 
@@ -57,9 +57,12 @@ class PollController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
-        //
+        $user = $request->user();
+        $poll = $user->polls()->where('id', $id)->first();
+
+        return view('polls/edit', ['poll' => $poll]);
     }
 
     /**
@@ -67,7 +70,16 @@ class PollController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = $request->user();
+        $title = $request->input('title');
+        $question = $request->input('question');
+        $description = $request->input('description');
+        $user->polls()->where('id', $id)->update([
+            'title' => $title,
+            'question' => $question,
+            'description' => $description,
+        ]);
+        return redirect()->route('polls.index');
     }
 
     /**
