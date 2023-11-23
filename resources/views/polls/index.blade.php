@@ -2,7 +2,12 @@
     <x-slot:title>
         Polls
     </x-slot:title>
-    <div>
+    <main class="p-4 mt-10">
+        <div class="not-format flex justify-end">
+            <x-link type="button" href="{{ route('polls.create') }}">
+                Create a new poll
+            </x-link>
+        </div>
         @if (count($polls) > 0)
             <p>Your polls:</p>
 
@@ -16,8 +21,5 @@
         @else
             You don't have any polls
         @endif
-    </div>
-    <div>
-        <a href="{{ route('polls.create') }}">Create a new poll</a>
-    </div>
+    </main>
 </x-signed-in-layout>
