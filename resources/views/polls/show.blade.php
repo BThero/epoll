@@ -1,13 +1,13 @@
 <x-layout>
     <x-slot:title>
-        Poll | {{ $poll->title ?? 'Not found' }}
+        Poll | {{ $poll->title }}
     </x-slot:title>
     <div>
-        @isset($poll)
-            <p>This is poll {{ $poll->id }}</p>
-            <p>Title: {{ $poll->title }}</p>
-            <p>Question: {{ $poll->question }}</p>
-            <p>Description: {{ $poll->description ?? '-' }}</p>
+        <p>This is poll {{ $poll->id }}</p>
+        <p>Title: {{ $poll->title }}</p>
+        <p>Question: {{ $poll->question }}</p>
+        <p>Description: {{ $poll->description ?? '-' }}</p>
+        @if($poll->user_id === auth()->user()->id)
             <div>
                 Options:
                 @foreach($poll->options as $option)
@@ -16,18 +16,42 @@
                     </div>
                 @endforeach
             </div>
-        @endisset
-        @empty($poll)
-            <p>Poll Not found</p>
-        @endempty
+        @else
+            <div>
+                Options:
+                <form action="{{ route('responses.store') }}" method="POST">
+                    @csrf
+                    <label hidden>
+                        Poll
+                        <input type="text" value="{{ $poll->id }}" name="poll_id"/>
+                    </label>
+                    @foreach($poll->options as $option)
+                        <label>
+                            <input type="radio" name="option_id" value="{{ $option->id }}">
+                            {{ $option->value }}
+                        </label>
+                    @endforeach
+                    @error('option_id')
+                    <div>
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div>
+                        <button type="submit">Vote</button>
+                    </div>
+                </form>
+            </div>
+        @endif
     </div>
     <div>
         <a href="{{ route('polls.index') }}">Back</a>
-        <a href="{{ route('polls.edit', $poll) }}">Edit</a>
-        <form action="{{ route('polls.destroy', $poll) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit">Delete</button>
-        </form>
+        @if($poll->user_id === auth()->user()->id)
+            <a href="{{ route('polls.edit', $poll) }}">Edit</a>
+            <form action="{{ route('polls.destroy', $poll) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Delete</button>
+            </form>
+        @endif
     </div>
 </x-layout>

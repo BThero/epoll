@@ -16,7 +16,7 @@ class Response extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [];
+    protected $fillable = ['poll_id', 'option_id'];
 
     /**
      * The attributes that should be hidden for serialization.
