@@ -22,6 +22,7 @@ class Poll extends Model
         'title',
         'description',
         'question',
+        'closed_at',
     ];
 
     /**

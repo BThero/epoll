@@ -8,6 +8,7 @@
         <p>Question: {{ $poll->question }}</p>
         <p>Description: {{ $poll->description ?? '-' }}</p>
         @if($poll->user_id === auth()->user()->id)
+            <p>Closed at: {{ $poll->closed_at ?? '-' }}</p>
             <div>
                 Options:
                 @foreach($poll->options as $option)

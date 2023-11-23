@@ -76,11 +76,16 @@ class PollController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
+        $user = $request->user();
         try {
             $poll = Poll::where(['id' => $id])->with(['options', 'user'])->firstOrFail();
         } catch (Throwable $e) {
+            abort(404);
+        }
+
+        if ($poll->user_id !== $user->id && $poll->closed_at !== null) {
             abort(404);
         }
 
@@ -103,6 +108,7 @@ class PollController extends Controller
         $options = Option::all(['id', 'value']);
         $options = $options->map(function ($option) use ($poll_options) {
             $option->checked = $poll_options->contains($option->id);
+
             return $option;
         });
 
@@ -118,6 +124,7 @@ class PollController extends Controller
         $title = $request->input('title');
         $question = $request->input('question');
         $description = $request->input('description');
+        $closed = $request->input('closed') !== null;
         $options = $this->extractOptions($request);
         try {
             $poll = $user->polls()->where('id', $id)->firstOrFail();
@@ -129,6 +136,17 @@ class PollController extends Controller
         $poll->description = $description;
         $poll->options()->detach();
         $poll->options()->attach($options);
+
+        if ($poll->closed_at !== null) {
+            if (!$closed) {
+                abort(403);
+            }
+        } else {
+            if ($closed) {
+                $poll->closed_at = now();
+            }
+        }
+
         try {
             $poll->save();
         } catch (Throwable $e) {

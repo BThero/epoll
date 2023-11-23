@@ -27,7 +27,7 @@
             @enderror
         </div>
         <div>
-            <label for="options">Options (check all you want)</label>
+            <p>Options (check all you want)</p>
             @foreach($options as $option)
                 <div>
                     <label>
@@ -39,10 +39,16 @@
                     </label>
                 </div>
             @endforeach
-            <input type="text" name="options" id="options" value="{{ old('options') }}">
             @error('options')
             <div>{{ $message }}</div>
             @enderror
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="closed"
+                       id="closed" @checked(old('closed', $poll->closed_at !== null)) @disabled($poll->closed_at !== null) />
+                Close poll
+            </label>
         </div>
         <div>
             <button type="submit">Update</button>
