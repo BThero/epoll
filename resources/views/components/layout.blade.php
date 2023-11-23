@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ $title ?? 'Title not specified' }}</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body class="antialiased">
+<body class="antialiased min-h-screen flex flex-col items-center !m-0">
 {{ $slot }}
 </body>
 </html>
