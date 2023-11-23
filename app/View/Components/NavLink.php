@@ -24,9 +24,10 @@ class NavLink extends Component
      */
     public function render(): View|Closure|string
     {
+
         return view('components.nav-link', [
             'href' => $this->href,
-            'active' => Route::is($this->href),
+            'active' => Route::current()->uri() === $this->href,
         ]);
     }
 }
