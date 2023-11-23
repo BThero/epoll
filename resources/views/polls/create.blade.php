@@ -5,29 +5,26 @@
     <main class="mt-2 p-4 w-full">
         <form action="{{ route('polls.store') }}" method="POST">
             @csrf
+            <x-input id="title" name="title" root-class="" type="text" required value="{{ old('title') }}" autofocus>
+                Title
+            </x-input>
+            @error('title')
+            <div>{{ $message }}</div>
+            @enderror
+            <x-input id="question" name="question" root-class="" type="text" required value="{{ old('question') }}">
+                Question
+            </x-input>
+            @error('question')
+            <div>{{ $message }}</div>
+            @enderror
+            <x-input id="description" name="description" root-class="" type="text" value="{{ old('description') }}">
+                Description
+            </x-input>
+            @error('description')
+            <div>{{ $message }}</div>
+            @enderror
             <div>
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" value="{{ old('title') }}">
-                @error('title')
-                <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="question">Question</label>
-                <input type="text" name="question" id="question" value="{{ old('question') }}">
-                @error('question')
-                <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description" value="{{ old('description') }}">
-                @error('description')
-                <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="options">Options (check all you want)</label>
+                <label for="options">Options (check multiple)</label>
                 @foreach($options as $option)
                     <div>
                         <label>
