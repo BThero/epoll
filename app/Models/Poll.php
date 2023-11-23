@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,5 +53,15 @@ class Poll extends Model
     public function options(): BelongsToMany
     {
         return $this->belongsToMany(Option::class);
+    }
+
+    public function closed(): bool
+    {
+        return $this->closed_at !== null;
+    }
+
+    public function scopeOpen(Builder $query): void
+    {
+        $query->whereNull('closed_at');
     }
 }

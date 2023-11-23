@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Option;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class OptionController extends Controller
@@ -11,10 +10,9 @@ class OptionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
-        $options = Option::query()->where(['user_id' => $user->id])->orWhere(['user_id' => null])->get();
+        $options = Option::accessible()->get();
 
         return view('options.index', [
             'options' => $options,
@@ -44,12 +42,9 @@ class OptionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, string $id)
+    public function show(string $id)
     {
-        $user = $request->user();
-        $option = Option::query()->where(['id' => $id])->where(function (Builder $query) use ($user) {
-            $query->where(['user_id' => $user->id])->orWhere(['user_id' => null]);
-        })->first();
+        $option = Option::accessible()->where(['id' => $id])->first();
 
         return view('options.show', [
             'option' => $option,

@@ -8,7 +8,7 @@
         @foreach($options as $option)
             <div class="border border-black p-2">
                 <p>Option {{ $option->value }}</p>
-                @if($option->user_id === null)
+                @if($option->public())
                     <p>Public</p>
                 @else
                     <p>Private</p>

@@ -5,7 +5,7 @@
     <div class="border border-black p-2">
         <p>Option ID:{{ $option->id }}</p>
         <p>Value: {{ $option->value  }}</p>
-        @if($option->user_id === null)
+        @if($option->public())
             <p>Public</p>
         @else
             <p>Private</p>
@@ -14,8 +14,7 @@
         <p>Updated at: {{ $option->updated_at }}</p>
         <div>
             <a href="{{ route('options.index') }}">Back</a>
-
-            @if($option->user_id !== null)
+            @if($option->public() === false)
                 <a href="{{ route('options.edit', $option) }}">Edit</a>
                 <form action="{{ route('options.destroy', $option) }}" method="POST">
                     @csrf

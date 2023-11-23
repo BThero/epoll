@@ -76,16 +76,15 @@ class PollController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, string $id)
+    public function show(string $id)
     {
-        $user = $request->user();
         try {
             $poll = Poll::where(['id' => $id])->with(['options', 'user'])->firstOrFail();
         } catch (Throwable $e) {
             abort(404);
         }
 
-        if ($poll->user_id !== $user->id && $poll->closed_at !== null) {
+        if ($poll->user_id !== auth()->id() && $poll->closed()) {
             abort(404);
         }
 
@@ -137,7 +136,7 @@ class PollController extends Controller
         $poll->options()->detach();
         $poll->options()->attach($options);
 
-        if ($poll->closed_at !== null) {
+        if ($poll->closed()) {
             if (! $closed) {
                 abort(403);
             }

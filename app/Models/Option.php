@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,5 +50,20 @@ class Option extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function public(): bool
+    {
+        return $this->user_id === null;
+    }
+
+    public function scopePublic(Builder $query): void
+    {
+        $query->where(['user_id' => null]);
+    }
+
+    public function scopeAccessible(Builder $query): void
+    {
+        $query->where(['user_id' => null])->orWhere(['user_id' => auth()->id()]);
     }
 }
