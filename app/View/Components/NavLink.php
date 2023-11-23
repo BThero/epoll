@@ -26,7 +26,7 @@ class NavLink extends Component
 
         return view('components.nav-link', [
             'href' => $this->href,
-            'active' => Route::current()->uri() === $this->href,
+            'active' => '/'.Route::current()->uri() === $this->href,
         ]);
     }
 }
