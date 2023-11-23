@@ -1,4 +1,4 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Poll | {{ $poll->title }}
     </x-slot:title>
@@ -55,4 +55,4 @@
             </form>
         @endif
     </div>
-</x-layout>
+</x-signed-in-layout>

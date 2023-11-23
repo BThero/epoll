@@ -1,4 +1,4 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Options | Epoll
     </x-slot:title>
@@ -21,4 +21,4 @@
         @endforeach
         <a href="{{ route('options.create') }}">Create</a>
     </div>
-</x-layout>
+</x-signed-in-layout>

@@ -1,4 +1,4 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Create Option | Epoll
     </x-slot:title>
@@ -15,4 +15,4 @@
             <button type="submit">Create</button>
         </form>
     </div>
-</x-layout>
+</x-signed-in-layout>

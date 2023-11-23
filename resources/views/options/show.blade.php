@@ -1,4 +1,4 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Option {{$option->id ?? 'Not found'}}} | Epoll
     </x-slot:title>
@@ -25,4 +25,4 @@
         </div>
         <hr>
     </div>
-</x-layout>
+</x-signed-in-layout>

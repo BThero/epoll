@@ -1,8 +1,12 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
-        Home | Epoll
+        Home
     </x-slot:title>
-    <div class="format lg:format-lg flex-1 w-full">
-        <x-nav-bar/>
-    </div>
-</x-layout>
+    <main class="mt-2 p-4">
+        @isset(auth()->user()->name)
+            <p class="text-end">Welcome back {{ auth()->user()->name }}!</p>
+        @else
+            <p class="text-end">Welcome stranger! Please fill out your name in Profile page</p>
+        @endisset
+    </main>
+</x-signed-in-layout>

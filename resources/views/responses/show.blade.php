@@ -1,4 +1,4 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Response | {{ $response->id }}
     </x-slot:title>
@@ -11,4 +11,4 @@
     <div>
         <a href="{{ route('responses.index') }}">Back to responses</a>
     </div>
-</x-layout>
+</x-signed-in-layout>

@@ -1,4 +1,4 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Edit Option {{ $option->value }} | Epoll
     </x-slot:title>
@@ -16,4 +16,4 @@
             <button type="submit">Edit</button>
         </form>
     </div>
-</x-layout>
+</x-signed-in-layout>

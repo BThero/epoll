@@ -1,4 +1,4 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Polls
     </x-slot:title>
@@ -20,4 +20,4 @@
     <div>
         <a href="{{ route('polls.create') }}">Create a new poll</a>
     </div>
-</x-layout>
+</x-signed-in-layout>

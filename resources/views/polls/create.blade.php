@@ -1,8 +1,8 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Create a poll
     </x-slot:title>
-    <div>
+    <main class="mt-2 p-4 w-full">
         <form action="{{ route('polls.store') }}" method="POST">
             @csrf
             <div>
@@ -46,5 +46,5 @@
                 <button type="submit">Create</button>
             </div>
         </form>
-    </div>
-</x-layout>
+    </main>
+</x-signed-in-layout>

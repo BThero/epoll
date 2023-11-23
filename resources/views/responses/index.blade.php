@@ -1,4 +1,4 @@
-<x-layout>
+<x-signed-in-layout>
     <x-slot:title>
         Your responses | Epoll
     </x-slot:title>
@@ -12,4 +12,4 @@
             @endforeach
         </ul>
     </div>
-</x-layout>
+</x-signed-in-layout>
