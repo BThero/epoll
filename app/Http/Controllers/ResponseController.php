@@ -14,6 +14,7 @@ class ResponseController extends Controller
     public function index(Request $request)
     {
         $responses = $request->user()->responses()->get('id');
+
         return view('responses.index', ['responses' => $responses]);
     }
 
@@ -57,6 +58,7 @@ class ResponseController extends Controller
         } catch (Throwable $e) {
             abort(404);
         }
+
         return view('responses.show', ['response' => $response]);
     }
 

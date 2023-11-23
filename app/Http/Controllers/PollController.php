@@ -138,7 +138,7 @@ class PollController extends Controller
         $poll->options()->attach($options);
 
         if ($poll->closed_at !== null) {
-            if (!$closed) {
+            if (! $closed) {
                 abort(403);
             }
         } else {
