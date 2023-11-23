@@ -14,8 +14,7 @@ class NavLink extends Component
      */
     public function __construct(
         public string $href,
-    )
-    {
+    ) {
         //
     }
 

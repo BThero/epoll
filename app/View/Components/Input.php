@@ -15,8 +15,7 @@ class Input extends Component
         public string $id,
         public string $name,
         public string $rootClass,
-    )
-    {
+    ) {
     }
 
     /**
