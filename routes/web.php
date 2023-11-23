@@ -11,20 +11,19 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can sign-in web routes for your application. These
+| Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::view('/', 'welcome');
+
+Route::middleware('auth')->group(function () {
+    Route::get('home', HomeController::class)->name('home');
+    Route::resource('polls', PollController::class);
+    Route::resource('options', OptionController::class);
 });
-
-Route::get('home', HomeController::class)->middleware('auth')->name('home');
-
-Route::resource('polls', PollController::class);
-Route::resource('options', OptionController::class);
 
 Route::view('sign-in', 'sign-in/phone');
 Route::get('sign-in/verify/{phone_number}', function (string $phone_number) {
@@ -32,6 +31,5 @@ Route::get('sign-in/verify/{phone_number}', function (string $phone_number) {
         'phone_number' => $phone_number,
     ]);
 });
-
 Route::post('sign-in/phone', [SignInController::class, 'savePhone'])->name('signIn.savePhone');
 Route::post('sign-in/verify', [SignInController::class, 'verifyPhone'])->name('signIn.verifyPhone');

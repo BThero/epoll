@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PollStoreRequest;
+use App\Http\Requests\PollUpdateRequest;
 use App\Models\Option;
+use App\Models\Poll;
 use Illuminate\Http\Request;
+use Throwable;
 
 class PollController extends Controller
 {
@@ -30,15 +34,8 @@ class PollController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    private function extractOptions(Request $request)
     {
-        $user = $request->user();
-        $title = $request->input('title');
-        $question = $request->input('question');
-        $description = $request->input('description');
         $options = collect($request->keys())->filter(function ($key) {
             return str_starts_with($key, 'option-');
         })->mapWithKeys(function ($key) {
@@ -48,12 +45,30 @@ class PollController extends Controller
 
             return [$strippedKey => ['order' => $order]];
         })->toArray();
+
+        return $options;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(PollStoreRequest $request)
+    {
+        $user = $request->user();
+        $title = $request->input('title');
+        $question = $request->input('question');
+        $description = $request->input('description');
+        $options = $this->extractOptions($request);
         $poll = $user->polls()->create([
             'title' => $title,
             'question' => $question,
             'description' => $description,
         ]);
-        $poll->options()->attach($options);
+        try {
+            $poll->options()->attach($options);
+        } catch (Throwable $e) {
+            abort(500);
+        }
 
         return redirect()->route('polls.index');
     }
@@ -61,10 +76,13 @@ class PollController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, string $id)
+    public function show(string $id)
     {
-        $user = $request->user();
-        $poll = $user->polls()->where('id', $id)->with('options')->first();
+        try {
+            $poll = Poll::where(['id' => $id])->with(['options', 'user'])->firstOrFail();
+        } catch (Throwable $e) {
+            abort(404);
+        }
 
         return view('polls/show', ['poll' => $poll]);
     }
@@ -75,25 +93,47 @@ class PollController extends Controller
     public function edit(Request $request, string $id)
     {
         $user = $request->user();
-        $poll = $user->polls()->where('id', $id)->first();
+        try {
+            $poll = $user->polls()->where('id', $id)->with('options')->firstOrFail();
+        } catch (Throwable $e) {
+            abort(404);
+        }
 
-        return view('polls/edit', ['poll' => $poll]);
+        $poll_options = $poll->options()->get(['id']);
+        $options = Option::all(['id', 'value']);
+        $options = $options->map(function ($option) use ($poll_options) {
+            $option->checked = $poll_options->contains($option->id);
+            return $option;
+        });
+
+        return view('polls/edit', ['poll' => $poll, 'options' => $options]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PollUpdateRequest $request, string $id)
     {
         $user = $request->user();
         $title = $request->input('title');
         $question = $request->input('question');
         $description = $request->input('description');
-        $user->polls()->where('id', $id)->update([
-            'title' => $title,
-            'question' => $question,
-            'description' => $description,
-        ]);
+        $options = $this->extractOptions($request);
+        try {
+            $poll = $user->polls()->where('id', $id)->firstOrFail();
+        } catch (Throwable $e) {
+            abort(404);
+        }
+        $poll->title = $title;
+        $poll->question = $question;
+        $poll->description = $description;
+        $poll->options()->detach();
+        $poll->options()->attach($options);
+        try {
+            $poll->save();
+        } catch (Throwable $e) {
+            abort(500);
+        }
 
         return redirect()->route('polls.index');
     }
@@ -104,7 +144,11 @@ class PollController extends Controller
     public function destroy(Request $request, string $id)
     {
         $user = $request->user();
-        $user->polls()->where('id', $id)->delete();
+        try {
+            $user->polls()->where('id', $id)->deleteOrFail();
+        } catch (Throwable $e) {
+            abort(404);
+        }
 
         return redirect()->route('polls.index');
     }
