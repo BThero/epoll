@@ -3,9 +3,10 @@
         Create a poll
     </x-slot:title>
     <main class="mt-2 p-4 w-full">
-        <form action="{{ route('polls.store') }}" method="POST">
+        <form action="{{ route('polls.store') }}" method="POST" class="space-y-2">
             @csrf
-            <x-input id="title" name="title" root-class="" type="text" required value="{{ old('title') }}" autofocus>
+            <x-input id="title" name="title" root-class="" type="text" required value="{{ old('title') }}"
+                     autofocus>
                 Title
             </x-input>
             @error('title')
@@ -23,25 +24,20 @@
             @error('description')
             <div>{{ $message }}</div>
             @enderror
-            <div>
-                <label for="options">Options (check multiple)</label>
+            <div class="">
+                <label class="text-sm font-medium text-gray-900 dark:text-gray-300">Options (check
+                    multiple)</label>
                 @foreach($options as $option)
-                    <div>
-                        <label>
-                            <input type="checkbox" name="{{'option-' . $option->id}}"
-                                   id="{{'option-' . $option->id}}"/>
-                            {{ $option->value }}
-                        </label>
-                    </div>
+                    <x-checkbox root-class="" name="{{'option-' . $option->id}}"
+                                id="{{'option-' . $option->id}}" disabled={{false}}>
+                        {{ $option->value }}
+                    </x-checkbox>
                 @endforeach
-                <input type="text" name="options" id="options" value="{{ old('options') }}">
                 @error('options')
                 <div>{{ $message }}</div>
                 @enderror
             </div>
-            <div>
-                <button type="submit">Create</button>
-            </div>
+            <x-button type="submit">Create</x-button>
         </form>
     </main>
 </x-signed-in-layout>
