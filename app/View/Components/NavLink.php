@@ -14,7 +14,8 @@ class NavLink extends Component
      */
     public function __construct(
         public string $href,
-    ) {
+    )
+    {
         //
     }
 
@@ -23,10 +24,10 @@ class NavLink extends Component
      */
     public function render(): View|Closure|string
     {
-
+        $uri = '/' . Route::current()->uri();
         return view('components.nav-link', [
             'href' => $this->href,
-            'active' => '/'.Route::current()->uri() === $this->href,
+            'active' => str_starts_with($uri, $this->href),
         ]);
     }
 }
