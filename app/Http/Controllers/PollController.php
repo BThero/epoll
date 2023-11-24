@@ -88,6 +88,7 @@ class PollController extends Controller
             if ($poll->closed()) {
                 abort(404);
             }
+
             return view('polls/show', ['poll' => $poll]);
         }
 
@@ -102,6 +103,7 @@ class PollController extends Controller
         } catch (Throwable $e) {
             abort(404);
         }
+
 //        dd($poll);
         return view('polls/show-responses', ['poll' => $poll]);
     }

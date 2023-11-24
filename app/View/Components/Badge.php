@@ -17,8 +17,7 @@ class Badge extends Component
      */
     public function __construct(
         public string $type,
-    )
-    {
+    ) {
         if ($type === 'default') {
             $this->customClass = 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
         } elseif ($type === 'dark') {
@@ -33,6 +32,6 @@ class Badge extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.badge', ['class' => $this->commonClass . ' ' . $this->customClass]);
+        return view('components.badge', ['class' => $this->commonClass.' '.$this->customClass]);
     }
 }
