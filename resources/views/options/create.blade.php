@@ -1,18 +1,18 @@
 <x-signed-in-layout>
     <x-slot:title>
-        Create Option | Epoll
+        Create an option | Epoll
     </x-slot:title>
-    <div class="border border-black p-2">
-        <form action="{{ route('options.store') }}" method="POST">
+    <main class="mt-2 p-4 w-full">
+        <form action="{{ route('options.store') }}" method="POST" class="space-y-2">
             @csrf
-            <div>
-                <label for="value">Value</label>
-                <input type="text" name="value" id="value" value="{{ old('value') }}">
-                @error('value')
-                <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <button type="submit">Create</button>
+            <x-input id="value" name="value" root-class="" type="text" required value="{{ old('value') }}"
+                     autofocus>
+                Value
+            </x-input>
+            @error('value')
+            <div>{{ $message }}</div>
+            @enderror
+            <x-button type="submit">Create</x-button>
         </form>
-    </div>
+    </main>
 </x-signed-in-layout>

@@ -1,6 +1,6 @@
 <x-signed-in-layout>
     <x-slot:title>
-        Create a poll
+        Create a poll | Epoll
     </x-slot:title>
     <main class="mt-2 p-4 w-full">
         <form action="{{ route('polls.store') }}" method="POST" class="space-y-2">

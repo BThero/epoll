@@ -1,19 +1,34 @@
 <x-signed-in-layout>
     <x-slot:title>
-        Edit Option {{ $option->value }} | Epoll
+        Edit option {{ $option->value }} | Epoll
     </x-slot:title>
-    <div class="border border-black p-2">
+    <main class="p-4 mt-8 not-format">
         <form action="{{ route('options.update', $option) }}" method="POST">
             @csrf
             @method('PUT')
-            <div>
-                <label for="value">Value</label>
-                <input type="text" name="value" id="value" value="{{ $option->value }}">
-                @error('value')
-                <div>{{ $message }}</div>
-                @enderror
+            <div class="flex justify-between items-center">
+                <div class="flex flex-row items-center gap-2">
+                    <h1 class="text-3xl text-gray-900 font-extrabold dark:text-white">
+                        <x-link type="default" href="{{route('options.index')}}">Options</x-link>
+                        / {{ $option->value }}
+                    </h1>
+                </div>
+                <div class="flex flex-row items-center gap-4">
+                    <x-button>
+                        Save
+                    </x-button>
+                    <x-link type="button" href="{{route('options.show', $option)}}">
+                        Cancel
+                    </x-link>
+                </div>
             </div>
-            <button type="submit">Edit</button>
+            <div class="mt-4 space-y-2">
+                <x-input id="value" name="value" root-class="" type="text" required
+                         value="{{ $option->value }}"
+                         autofocus>
+                    Value
+                </x-input>
+            </div>
         </form>
-    </div>
+    </main>
 </x-signed-in-layout>
