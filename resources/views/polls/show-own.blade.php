@@ -2,7 +2,7 @@
     <x-slot:title>
         Poll | {{ $poll->title }}
     </x-slot:title>
-    <main class="p-4 mt-8 not-format">
+    <main class="p-4 mt-8 not-format space-y-4">
         <div class="flex justify-between items-center">
             <div class="flex flex-row items-center gap-2">
                 <h1 class="text-3xl text-gray-900 font-extrabold dark:text-white">
@@ -26,7 +26,7 @@
                 </form>
             </div>
         </div>
-        <div class="mt-4 space-y-2">
+        <div class="space-y-2">
             <x-input id="title" name="title" root-class="" type="text" required disabled value="{{ $poll->title }}"
                      autofocus>
                 Title
@@ -54,6 +54,11 @@
                 <div>{{ $message }}</div>
                 @enderror
             </div>
+        </div>
+        <div>
+            <x-link href="{{ route('polls.responses', $poll) }}" type="default">See {{$poll->responses_count}} response
+                (-s)
+            </x-link>
         </div>
     </main>
 </x-signed-in-layout>

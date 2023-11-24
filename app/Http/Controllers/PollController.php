@@ -79,7 +79,7 @@ class PollController extends Controller
     public function show(string $id)
     {
         try {
-            $poll = Poll::where(['id' => $id])->with(['options', 'user'])->firstOrFail();
+            $poll = Poll::where(['id' => $id])->with(['options', 'user'])->withCount(['responses'])->firstOrFail();
         } catch (Throwable $e) {
             abort(404);
         }
@@ -92,6 +92,18 @@ class PollController extends Controller
         }
 
         return view('polls/show-own', ['poll' => $poll]);
+    }
+
+    public function showResponses(Request $request, string $id)
+    {
+        $user = $request->user();
+        try {
+            $poll = $user->polls()->where('id', $id)->with(['responses', 'responses.option', 'responses.user'])->firstOrFail();
+        } catch (Throwable $e) {
+            abort(404);
+        }
+//        dd($poll);
+        return view('polls/show-responses', ['poll' => $poll]);
     }
 
     /**

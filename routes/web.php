@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('polls', PollController::class);
     Route::resource('options', OptionController::class);
     Route::resource('responses', ResponseController::class);
+    Route::get('polls/{poll}/responses', [PollController::class, 'showResponses'])->name('polls.responses');
 });
 
 Route::view('sign-in', 'sign-in/phone');
