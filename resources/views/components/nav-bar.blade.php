@@ -18,7 +18,7 @@
                 </li>
                 <li>
                     <x-navlink href="/responses">
-                        Responses
+                        My Responses
                     </x-navlink>
                 </li>
                 <li>
