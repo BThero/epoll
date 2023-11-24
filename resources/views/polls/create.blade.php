@@ -24,7 +24,7 @@
             @error('description')
             <div>{{ $message }}</div>
             @enderror
-            <div class="">
+            <div>
                 <label class="text-sm font-medium text-gray-900 dark:text-gray-300">Options (check
                     multiple)</label>
                 @foreach($options as $option)
