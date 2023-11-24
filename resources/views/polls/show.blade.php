@@ -5,10 +5,17 @@
     @if ($poll->user_id === auth()->user()->id)
         <main class="p-4 mt-8 not-format">
             <div class="flex justify-between items-center">
-                <h1 class="text-3xl text-gray-900 font-extrabold dark:text-white">
-                    <x-link type="default" href="{{route('polls.index')}}">Polls</x-link>
-                    / {{ $poll->title }}
-                </h1>
+                <div class="flex flex-row items-center gap-2">
+                    <h1 class="text-3xl text-gray-900 font-extrabold dark:text-white">
+                        <x-link type="default" href="{{route('polls.index')}}">Polls</x-link>
+                        / {{ $poll->title }}
+                    </h1>
+                    @if ($poll->closed())
+                        <x-badge type="dark">Closed</x-badge>
+                    @else
+                        <x-badge type="default">Open</x-badge>
+                    @endif
+                </div>
                 <div class="flex flex-row items-center gap-4">
                     <x-link type="button" href="{{ route('polls.edit', $poll) }}">
                         Edit

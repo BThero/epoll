@@ -7,10 +7,17 @@
             @csrf
             @method('PUT')
             <div class="flex justify-between items-center">
-                <h1 class="text-3xl text-gray-900 font-extrabold dark:text-white">
-                    <x-link type="default" href="{{route('polls.index')}}">Polls</x-link>
-                    / {{ $poll->title }}
-                </h1>
+                <div class="flex flex-row items-center gap-2">
+                    <h1 class="text-3xl text-gray-900 font-extrabold dark:text-white">
+                        <x-link type="default" href="{{route('polls.index')}}">Polls</x-link>
+                        / {{ $poll->title }}
+                    </h1>
+                    @if ($poll->closed())
+                        <x-badge type="dark">Closed</x-badge>
+                    @else
+                        <x-badge type="default">Open</x-badge>
+                    @endif
+                </div>
                 <div class="flex flex-row items-center gap-4">
                     <x-button>
                         Save

@@ -135,16 +135,7 @@ class PollController extends Controller
         $poll->description = $description;
         $poll->options()->detach();
         $poll->options()->attach($options);
-
-        if ($poll->closed()) {
-            if (! $closed) {
-                abort(403);
-            }
-        } else {
-            if ($closed) {
-                $poll->closed_at = now();
-            }
-        }
+        $poll->closed_at = $closed ? now() : null;
 
         try {
             $poll->save();
