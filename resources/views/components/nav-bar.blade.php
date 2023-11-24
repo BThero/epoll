@@ -17,11 +17,6 @@
                     </x-navlink>
                 </li>
                 <li>
-                    <x-navlink href="/responses">
-                        My Responses
-                    </x-navlink>
-                </li>
-                <li>
                     <x-navlink href="/options">
                         Options
                     </x-navlink>

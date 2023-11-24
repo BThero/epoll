@@ -13,9 +13,7 @@ class ResponseController extends Controller
      */
     public function index(Request $request)
     {
-        $responses = $request->user()->responses()->get('id');
-
-        return view('responses.index', ['responses' => $responses]);
+        //
     }
 
     /**
@@ -52,14 +50,7 @@ class ResponseController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $user = $request->user();
-        try {
-            $response = $user->responses()->where('id', $id)->with(['poll', 'option'])->firstOrFail();
-        } catch (Throwable $e) {
-            abort(404);
-        }
-
-        return view('responses.show', ['response' => $response]);
+        //
     }
 
     /**
