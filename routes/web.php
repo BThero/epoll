@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\PollController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResponseController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('polls', PollController::class);
     Route::resource('options', OptionController::class);
     Route::resource('responses', ResponseController::class);
+    Route::resource('profile', ProfileController::class);
     Route::get('polls/{poll}/responses', [PollController::class, 'showResponses'])->name('polls.responses');
 });
 
