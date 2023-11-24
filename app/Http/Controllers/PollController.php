@@ -84,11 +84,14 @@ class PollController extends Controller
             abort(404);
         }
 
-        if ($poll->user_id !== auth()->id() && $poll->closed()) {
-            abort(404);
+        if ($poll->user_id !== auth()->id()) {
+            if ($poll->closed()) {
+                abort(404);
+            }
+            return view('polls/show', ['poll' => $poll]);
         }
 
-        return view('polls/show', ['poll' => $poll]);
+        return view('polls/show-own', ['poll' => $poll]);
     }
 
     /**

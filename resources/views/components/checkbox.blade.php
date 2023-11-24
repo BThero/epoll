@@ -1,4 +1,4 @@
-<div class="{{"flex items-center".$root_class }}">
+<div class="{{"flex items-center"." ".$root_class }}">
     <input type="checkbox" name="{{ $name }}"
            id="{{ $id }} " class="{{$class}}"
         {{$attributes}} @disabled($disabled) @checked($checked) />
