@@ -16,13 +16,11 @@ class Checkbox extends Component
         public string $id,
         public string $rootClass,
         public bool $disabled,
+        public bool $checked,
     ) {
-        //
     }
 
-    private string $enabledClass = 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600';
-
-    private string $disabledClass = 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600';
+    private string $inputClass = 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600';
 
     /**
      * Get the view / contents that represent the component.
@@ -34,7 +32,8 @@ class Checkbox extends Component
             'id' => $this->id,
             'root_class' => $this->rootClass,
             'disabled' => $this->disabled,
-            'class' => $this->disabled ? $this->disabledClass : $this->enabledClass,
+            'checked' => $this->checked,
+            'class' => $this->inputClass,
         ]);
     }
 }
