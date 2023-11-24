@@ -9,11 +9,20 @@
             </h1>
         </div>
         <div class="flex items-center justify-between">
-            <div class="w-[200px] h-[200px] rounded-full bg-gray-700"></div>
+            <div class="w-[200px] h-[200px] rounded-full bg-gray-700 overflow-hidden">
+                <img src="{{ $image }}" alt="avatar"/>
+            </div>
         </div>
-        <form class="space-y-2" action="{{ route('profile.update', auth()->user()) }}" method="POST">
+        <form class="space-y-2" action="{{ route('profile.update', auth()->user()) }}" method="POST"
+              enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            
+            <div>
+                <label for="avatar">Select a file:</label>
+                <input type="file" id="avatar" name="avatar">
+            </div>
+
             <x-input root-class="" type="text" name="name" id="name" placeholder="Name"
                      value="{{ auth()->user()->name }}"
                      required>

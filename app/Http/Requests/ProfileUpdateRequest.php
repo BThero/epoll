@@ -23,6 +23,7 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => 'nullable|string|max:30',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg',
         ];
     }
 }

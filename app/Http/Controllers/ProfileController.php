@@ -12,7 +12,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile.index');
+        $user = auth()->user();
+        $image = $user->getFirstMediaUrl('default', 'thumbnail');
+        return view('profile.index', [
+            'image' => $image,
+        ]);
     }
 
     /**
@@ -55,6 +59,16 @@ class ProfileController extends Controller
         $name = $request->input('name');
         $user = $request->user();
         $user->name = $name === null || strlen(trim($name)) === 0 ? null : trim($name);
+
+        if ($request->hasFile('avatar')) {
+            $user->clearMediaCollection('default');
+            try {
+                $user->addMediaFromRequest('avatar')->toMediaCollection();
+            } catch (Throwable $e) {
+                abort(500);
+            }
+        }
+
         try {
             $user->save();
         } catch (Throwable $e) {
